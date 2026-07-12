@@ -61,13 +61,5 @@ Tracking error is higher than a full index fund by design, since BetaLock tracks
 
 ---
 
-## Repository Structure
-```
-beta-lock/
-│
-├── main.ipynb          # Main analysis and portfolio construction notebook
-├── tickers.csv         # Input ticker universe
-├── portfolio.csv       # Final output (Ticker, Shares)
-├── requirements.txt    # Required Python libraries
-└── README.md           # Project documentation
-```
+## Tech Stack
+Python · pandas · NumPy · SciPy · yfinance · Matplotlib
