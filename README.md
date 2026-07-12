@@ -1,28 +1,16 @@
 # BetaLock 📊  
-**Index-tracking portfolio optimizer that locks beta to ~1 by minimizing tracking error against a blended S&P 500/TSX benchmark.**
 
-> 🥈 2nd place, Market Meet category, CFM 101 Robo-Advising Challenge. Full code in `main.ipynb`.
-
-## Overview
 BetaLock builds a diversified 20-stock portfolio that tracks a benchmark defined as the average of S&P 500 and TSX Composite total returns. Rather than trying to beat the market, it solves an index-tracking problem: minimizing tracking error against the benchmark while holding portfolio beta close to 1, subject to sector, market-cap, and weight constraints. The result is a fee-adjusted portfolio executable using fractional shares.
 
----
-
-## Strategy Summary
-The algorithm reads an input universe from `tickers.csv` and:
-
-- Filters eligible stocks based on data quality and liquidity  
-- Constructs a benchmark from S&P 500 and TSX Composite total returns  
-- Ranks stocks by average distance from the benchmark  
-- Selects and optimizes a 20-stock portfolio under sector and market-cap constraints  
-- Executes the portfolio with transaction fees and fractional shares  
+> 🥈 2nd place, Market Meet category, CFM 101 Robo-Advising Challenge. Full code in `main.ipynb`.
 
 ---
 
 ## Ticker Filtering
+Stocks must pass these screens to enter the universe:
+
 - Valid historical data from October 1, 2024 to September 30, 2025  
-- Average daily volume of at least 5,000 shares  
-- Months with fewer than 18 trading days excluded  
+- Average daily volume of at least 5,000 shares (months with fewer than 18 trading days excluded)  
 - Duplicate and invalid tickers removed  
 
 ---
@@ -33,7 +21,7 @@ A three-year window from November 21, 2022 to November 21, 2025. This gives the 
 ---
 
 ## Benchmark and Stock Ranking
-The benchmark is the average of cumulative total returns from the S&P 500 and TSX Composite. Each stock is ranked by its average absolute distance from the benchmark's cumulative return. Cross-listed duplicates are removed, keeping the version that tracks the benchmark more closely.
+The benchmark is the average of cumulative total returns from the S&P 500 and TSX Composite. Each stock is ranked by its average absolute distance from the benchmark's cumulative return, and cross-listed duplicates are removed, keeping the version that tracks the benchmark more closely.
 
 ---
 
@@ -43,7 +31,7 @@ A 20-stock portfolio is selected under these constraints:
 - At least one large-cap stock (market cap > $10B CAD)  
 - At least one small-cap stock (market cap < $2B CAD)  
 - No sector above 40% exposure  
-- Maximum weight of 15% per stock  
+- Each stock weighted between 2.5% and 15%  
 
 Weights are optimized using SciPy's SLSQP solver by minimizing tracking error variance, with a beta penalty that keeps portfolio beta close to 1. Initial weights favor stocks that track the benchmark more closely.
 
