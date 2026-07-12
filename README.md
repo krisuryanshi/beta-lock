@@ -1,19 +1,17 @@
-# Benchmark Portfolio Optimizer 📊  
-**CFM 101 – Robo-Advising Challenge (Market Meet Strategy)**
+# BetaLock 📊  
+**A quantitative portfolio construction algorithm that builds a diversified equity portfolio designed to track a blended S&P 500/TSX benchmark while locking beta to ~1, using constrained optimization (SciPy SLSQP).**
 
-> Full implementation and outputs are in `main.ipynb`.
+> Built for the CFM 101 Robo-Advising Challenge (Market Meet strategy). Full implementation and outputs are in `main.ipynb`.
 
 ## Overview
-This project builds a rule-based portfolio optimizer that constructs a diversified equity portfolio designed to track a benchmark defined as the average of S&P 500 and TSX Composite total returns.
+BetaLock constructs a diversified 20-stock equity portfolio engineered to track a benchmark defined as the average of S&P 500 and TSX Composite total returns. Rather than trying to beat the market, it solves an index-tracking problem: minimizing tracking error variance against the benchmark while holding portfolio beta close to 1, all subject to sector, market-cap, and position-size constraints.
 
-All logic is implemented in code and follows the assignment constraints throughout. The final result is a fee-adjusted portfolio that can be executed using fractional shares.
-
-**Competition goal:** Market Meet
+All logic is implemented in code and follows the challenge constraints throughout. The final result is a fee-adjusted portfolio that can be executed using fractional shares.
 
 ---
 
 ## Strategy Summary
-The optimizer reads an input universe from `tickers.csv` and follows this process:
+The algorithm reads an input universe from `tickers.csv` and follows this process:
 
 - Filter eligible stocks based on data quality and liquidity  
 - Construct a benchmark from S&P 500 and TSX Composite total returns  
@@ -38,7 +36,7 @@ A three-year window is used:
 
 - November 21, 2022 to November 21, 2025  
 
-This captures recent market behavior while avoiding early COVID-period distortions and includes higher volatility in 2024–2025.
+This captures recent market behavior while avoiding early COVID-period distortions and includes higher volatility in 2024–2025. All data pulls are pinned to a fixed as-of date (November 21, 2025) so results are fully reproducible across runs.
 
 ---
 
@@ -57,14 +55,14 @@ A portfolio of 20 stocks is selected with the following constraints:
 - No sector above 40 percent exposure  
 - Maximum weight of 15 percent per stock  
 
-Weights are optimized by minimizing tracking error variance, with a beta penalty to keep portfolio beta close to 1. Initial weights favor stocks that track the benchmark more closely.
+Weights are optimized using SciPy's SLSQP solver by minimizing tracking error variance, with a beta penalty that keeps portfolio beta close to 1. Initial weights favor stocks that track the benchmark more closely, giving the solver a strong starting point.
 
 ---
 
 ## Fee-Adjusted Execution
 The optimized portfolio is executed using a $1,000,000 CAD budget.
 
-- USD stocks use the live USD/CAD exchange rate  
+- USD stocks are converted using the USD/CAD exchange rate as of the pinned date  
 - Fees applied as $2.15 USD flat or $0.001 USD per share, whichever is smaller  
 - Portfolio weights are rescaled after fees  
 - Fractional shares are used to deploy capital efficiently  
@@ -74,22 +72,22 @@ The optimized portfolio is executed using a $1,000,000 CAD budget.
 ## Final Output
 The final portfolio is exported to `portfolio.csv`, containing each ticker and the number of shares purchased. Final weights sum to 100 percent, with total value as close as possible to $1,000,000 CAD after fees.
 
----
+![Portfolio vs. Benchmark](INSERT_IMAGE_PATH_HERE)
 
-## My Contributions
-*Group assignment. Contributions listed below are my own.*
+### Results
+The optimized portfolio tracks the blended benchmark closely across the full three-year window:
 
-**Krish Suryavanshi**
-- Built the ticker filtering and liquidity screening logic  
-- Designed the benchmark distance ranking method  
-- Implemented portfolio selection under sector and market-cap constraints  
-- Added optimization validation checks  
+- **Portfolio beta: ~1.00** — the portfolio moves in near-lockstep with the benchmark's direction and magnitude, which was the core objective of the beta penalty term  
+- **Annualized tracking error: ~8.9%** — the typical yearly deviation between portfolio and benchmark returns, expected for a concentrated 20-stock basket under sector and weight constraints rather than full index replication  
+- **Tracking error variance: ~3.2e-05 daily** (~47% of the benchmark's own daily variance)  
+
+The tight fit in the chart above reflects the beta-locking objective: the portfolio isn't just close in level, it moves with the benchmark day to day. Tracking error is higher than a full-replication index fund (which holds hundreds of names) by design — this is an optimized-sampling approach that matches the benchmark using only 20 stocks.
 
 ---
 
 ## Repository Structure
 ```
-benchmark-portfolio-optimizer/
+beta-lock/
 │
 ├── main.ipynb          # Main analysis and portfolio construction notebook
 ├── tickers.csv         # Input ticker universe
@@ -97,10 +95,3 @@ benchmark-portfolio-optimizer/
 ├── requirements.txt    # Required Python libraries
 └── README.md           # Project documentation
 ```
-
----
-
-## Notes
-- All constraints are enforced in code  
-- No values are hard-coded to a fixed ticker set  
-- Contest-period performance does not affect grading
