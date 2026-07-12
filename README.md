@@ -1,10 +1,10 @@
 # BetaLock 📊  
 **Index-tracking portfolio optimizer that locks beta to ~1 by minimizing tracking error against a blended S&P 500/TSX benchmark.**
 
-> 🥈 Placed 2nd in the Market Meet category of the CFM 101 Robo-Advising Challenge. Full implementation and outputs are in `main.ipynb`.
+> 🥈 2nd place, Market Meet category, CFM 101 Robo-Advising Challenge. Full code in `main.ipynb`.
 
 ## Overview
-BetaLock constructs a diversified 20-stock equity portfolio engineered to track a benchmark defined as the average of S&P 500 and TSX Composite total returns. Rather than trying to beat the market, it solves an index-tracking problem: minimizing tracking error variance against the benchmark while holding portfolio beta close to 1, subject to sector, market-cap, and position-size constraints. The final result is a fee-adjusted portfolio executable using fractional shares.
+BetaLock builds a diversified 20-stock portfolio that tracks a benchmark defined as the average of S&P 500 and TSX Composite total returns. Rather than trying to beat the market, it solves an index-tracking problem: minimizing tracking error against the benchmark while holding portfolio beta close to 1, subject to sector, market-cap, and weight constraints. The result is a fee-adjusted portfolio executable using fractional shares.
 
 ---
 
@@ -28,7 +28,7 @@ The algorithm reads an input universe from `tickers.csv` and:
 ---
 
 ## Analysis Window
-November 21, 2022 to November 21, 2025, a three-year window capturing recent market behavior while avoiding early COVID-period distortions. All data pulls are pinned to a fixed as-of date (November 21, 2025) so results are fully reproducible across runs.
+A three-year window from November 21, 2022 to November 21, 2025. This gives the most recent market behavior while avoiding the early COVID period, and it captures the volatility that followed Trump returning to office in early 2025, especially the tariffs introduced early on, which moved the market around quite a bit. All data pulls are pinned to a fixed as-of date (November 21, 2025) so results are fully reproducible across runs.
 
 ---
 
