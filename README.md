@@ -1,7 +1,7 @@
 # BetaLock 📊  
 **A quantitative portfolio construction algorithm that builds a diversified equity portfolio designed to track a blended S&P 500/TSX benchmark while locking beta to ~1, using constrained optimization (SciPy SLSQP).**
 
-> Built for the CFM 101 Robo-Advising Challenge (Market Meet strategy). Full implementation and outputs are in `main.ipynb`.
+> 🥈 Placed 2nd in the Market Meet category of the CFM 101 Robo-Advising Challenge. Full implementation and outputs are in `main.ipynb`.
 
 ## Overview
 BetaLock constructs a diversified 20-stock equity portfolio engineered to track a benchmark defined as the average of S&P 500 and TSX Composite total returns. Rather than trying to beat the market, it solves an index-tracking problem: minimizing tracking error variance against the benchmark while holding portfolio beta close to 1, all subject to sector, market-cap, and position-size constraints.
