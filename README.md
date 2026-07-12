@@ -50,7 +50,7 @@ The optimized portfolio is executed on a $1,000,000 CAD budget:
 ## Final Output
 The final portfolio is exported to `portfolio.csv` (ticker and shares purchased). Final weights sum to 100%, with total value as close as possible to $1,000,000 CAD after fees.
 
-![Portfolio vs. Benchmark](INSERT_IMAGE_PATH_HERE)
+<img width="1134" height="563" alt="image" src="https://github.com/user-attachments/assets/a7809da1-1849-4293-b86b-9a68555c576f" />
 
 ### Results
 - **Portfolio beta: ~1.00**, moving in near-lockstep with the benchmark's direction and magnitude, the core objective of the beta penalty  
