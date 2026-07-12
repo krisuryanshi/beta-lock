@@ -1,8 +1,8 @@
 # BetaLock 📊  
 
-BetaLock builds a diversified 20-stock portfolio that tracks a benchmark defined as the average of S&P 500 and TSX Composite total returns. Rather than trying to beat the market, it solves an index-tracking problem: minimizing tracking error against the benchmark while holding portfolio beta close to 1, subject to sector, market-cap, and weight constraints. The result is a fee-adjusted portfolio executable using fractional shares.
-
 > 🥈 2nd place, Market Meet category, CFM 101 Robo-Advising Challenge. Full code in `main.ipynb`.
+
+BetaLock builds a diversified 20-stock portfolio that tracks a benchmark defined as the average of S&P 500 and TSX Composite total returns. Rather than trying to beat the market, it solves an index-tracking problem: minimizing tracking error against the benchmark while holding portfolio beta close to 1, subject to sector, market-cap, and weight constraints. The result is a fee-adjusted portfolio executable using fractional shares.
 
 ---
 
